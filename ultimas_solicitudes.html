@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Últimas Solicitudes</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="header">
+        <div class="section-title">
+            <h1>Últimas Solicitudes</h1>
+        </div>
+        <div class="logo-container">
+            <img src="https://cdn.streamelements.com/uploads/fa3fe2b3-134b-4288-bfef-29948befc05f.png" alt="Logo" class="logo">
+        </div>
+        <div class="social-icons">
+            <a href="https://www.twitch.tv/piravision" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/4e340b43-7b0e-4bad-81d4-197c233827c4.png" alt="Twitch">
+            </a>
+            <a href="https://kick.com/piravision" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/9e660f91-49cb-476f-b328-8a1e5d9706ae.png" alt="Kick">
+            </a>
+            <a href="https://discord.gg/7VEzeTy55R" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/e731c1a0-344f-432d-bbf8-0590844f7e25.png" alt="Discord">
+            </a>
+            <a href="https://x.com/PiraVision" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/aecdfafd-fb1e-41d7-91ff-cc7d5cb34a32.png" alt="X (Twitter)">
+            </a>
+            <a href="https://t.me/+UD7ZygM3MrlhNjg0" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/16594692-335f-470e-9beb-fd542023ec96.png" alt="Telegram">
+            </a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table id="tablaSolicitudes">
+            <thead>
+                <tr>
+                    <th>Nombre de Usuario</th>
+                    <th>Título</th>
+                    <th>Año</th>
+                    <th>Tipo</th>
+                    <th>Franja Horaria</th>
+                    <th>Carátula</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Se agregan filas dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tablaSolicitudesBody = document.querySelector('#tablaSolicitudes tbody');
+            const solicitudes = JSON.parse(localStorage.getItem('solicitudes')) || [];
+            solicitudes.forEach(solicitud => {
+                addSolicitudToTable(solicitud);
+            });
+
+            function addSolicitudToTable({userName, title, year, type, franja, poster}) {
+                const tr = document.createElement('tr');
+
+                const tdUser = document.createElement('td');
+                tdUser.textContent = userName;
+
+                const tdTitle = document.createElement('td');
+                tdTitle.textContent = title;
+
+                const tdYear = document.createElement('td');
+                tdYear.textContent = year;
+
+                const tdType = document.createElement('td');
+                tdType.textContent = type;
+
+                const tdFranja = document.createElement('td');
+                tdFranja.textContent = franja;
+
+                const tdPoster = document.createElement('td');
+                if (poster) {
+                    const img = document.createElement('img');
+                    img.src = poster;
+                    img.alt = "Carátula";
+                    img.style.width = "50px";
+                    img.style.maxWidth = "50px"; /* Asegurar que no sea demasiado grande */
+                    tdPoster.appendChild(img);
+                } else {
+                    tdPoster.textContent = 'N/A';
+                }
+
+                tr.appendChild(tdUser);
+                tr.appendChild(tdTitle);
+                tr.appendChild(tdYear);
+                tr.appendChild(tdType);
+                tr.appendChild(tdFranja);
+                tr.appendChild(tdPoster);
+
+                tablaSolicitudesBody.appendChild(tr);
+            }
+        });
+    </script>
+</body>
+</html>
