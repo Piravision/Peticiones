@@ -46,6 +46,9 @@ const loginStatus = document.getElementById('loginStatus');
 // Botón para borrar solicitudes
 const btnBorrarSolicitudes = document.getElementById('btnBorrarSolicitudes');
 
+// Reemplaza con tu propia clave de TMDb
+const TMDB_API_KEY = "834a733b9049f196062484fc97f21452"; 
+
 // Variables para el contenido seleccionado
 let selectedContentData = null;
 let selectedType = 'movie'; 
@@ -181,10 +184,10 @@ async function maintainSolicitudLimit(maxLimit) {
 
 // Evento para el botón de búsqueda
 btnBuscar.addEventListener('click', async () => {
-  const query = inputNombre.value.trim();
+  const queryText = inputNombre.value.trim();
   const year = inputAnio.value.trim();
 
-  if(!query) {
+  if(!queryText) {
     alert("Por favor ingresa un nombre para la búsqueda.");
     return;
   }
@@ -195,7 +198,7 @@ btnBuscar.addEventListener('click', async () => {
     return;
   }
 
-  const results = await searchInTMDB(query, selectedType, year);
+  const results = await searchInTMDB(queryText, selectedType, year);
 
   if (results && results.length > 0) {
     // Mostrar la tabla de resultados
@@ -483,8 +486,8 @@ function posterDiv(posterUrl) {
     const posterImg = document.createElement('img');
     posterImg.src = posterUrl;
     posterImg.alt = "Poster";
-    posterImg.style.width = "300px"; // Anotación: Cambia este valor para ajustar el ancho del poster
-    posterImg.style.height = "auto"; // Anotación: Cambia este valor para ajustar la altura del poster
+    posterImg.style.width = "300px"; // Cambia este valor para ajustar el ancho del poster
+    posterImg.style.height = "auto"; // Cambia este valor para ajustar la altura del poster
     div.appendChild(posterImg);
   }
   return div;
