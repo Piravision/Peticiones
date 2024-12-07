@@ -479,66 +479,6 @@ function showSolicitudForm() {
   solicitudContainer.style.display = "block";
 }
 
-// Evento para el botón de enviar solicitud
-btnEnviarSolicitud.addEventListener('click', async () => {
-  const userName = solicitudUsuario.value.trim();
-  const franja = solicitudFranja.value;
-
-  if (!userName || !selectedContentData) {
-    alert("Falta información: Asegúrate de haber seleccionado contenido y llenado tu nombre de usuario.");
-    return;
-  }
-
-  await addSolicitud({
-    userName,
-    title: selectedContentData.title,
-    year: selectedContentData.year,
-    type: (selectedContentData.type === 'movie') ? 'Película' : 'Serie',
-    franja,
-    poster: selectedContentData.poster
-  });
-
-  solicitudUsuario.value = "";
-  solicitudFranja.value = "Mañana";
-  solicitudContainer.style.display = "none";
-
-  // Ocultar la ficha del contenido seleccionado
-  selectedContentDiv.style.display = 'none';
-});
-
-// Función para establecer la imagen de fondo de la ficha del contenido seleccionado
-function setSelectedContentBackground(backdropUrl) {
-    if (backdropUrl) {
-        selectedContentDiv.style.backgroundImage = `url(${backdropUrl})`;
-        selectedContentDiv.style.backgroundSize = 'cover';
-        selectedContentDiv.style.backgroundPosition = 'center';
-        selectedContentDiv.style.backgroundRepeat = 'no-repeat';
-        selectedContentDiv.style.backgroundBlendMode = 'darken'; // Para mejorar la legibilidad
-    } else {
-        selectedContentDiv.style.backgroundImage = '';
-        selectedContentDiv.style.backgroundBlendMode = 'normal';
-    }
-}
-
-// Función administrativa para limpiar todas las solicitudes (Solo Admin)
-async function clearSolicitudes() {
-    try {
-        const solicitudesSnapshot = await getDocs(collection(window.db, 'solicitudes'));
-        const batch = writeBatch(window.db);
-
-        solicitudesSnapshot.forEach((docSnap) => {
-            batch.delete(docSnap.ref);
-        });
-
-        await batch.commit();
-        console.log("Historial de solicitudes limpiado.");
-        // Actualizar la tabla en la página principal
-        loadLastRequests();
-    } catch (error) {
-        console.error("Error limpiando solicitudes:", error);
-    }
-}
-
 // Funciones de Autenticación
 
 // Evento para el botón de login con Google
@@ -603,114 +543,21 @@ btnBorrarSolicitudes.addEventListener('click', async () => {
     }
 });
 
-// Función para mostrar el contenido seleccionado
-function showSelectedContent(content) {
-  selectedContentDiv.innerHTML = "";
-  selectedContentDiv.style.display = 'flex'; // Cambiar a flex para el layout
+// Función administrativa para limpiar todas las solicitudes (Solo Admin)
+async function clearSolicitudes() {
+    try {
+        const solicitudesSnapshot = await getDocs(collection(window.db, 'solicitudes'));
+        const batch = writeBatch(window.db);
 
-  const infoDiv = document.createElement('div');
-  infoDiv.classList.add('info');
+        solicitudesSnapshot.forEach((docSnap) => {
+            batch.delete(docSnap.ref);
+        });
 
-  // Agregar el logo en castellano o inglés si está disponible
-  if (content.logo_es && content.logo_es !== 'default_logo_en.png') {
-    const logoEs = document.createElement('img');
-    logoEs.src = content.logo_es;
-    logoEs.alt = 'Logo';
-    logoEs.classList.add('logo-es');
-    infoDiv.appendChild(logoEs);
-  }
-
-  // Crear una tabla para las variables en dos columnas
-  const infoTable = document.createElement('table');
-  infoTable.classList.add('info-table');
-
-  // Función para agregar una fila a la tabla
-  function addInfoRow(label, value) {
-    const tr = document.createElement('tr');
-
-    const tdLabel = document.createElement('td');
-    tdLabel.textContent = label;
-
-    const tdValue = document.createElement('td');
-    tdValue.innerHTML = value; // Usar innerHTML para insertar HTML
-
-    tr.appendChild(tdLabel);
-    tr.appendChild(tdValue);
-
-    infoTable.appendChild(tr);
-  }
-
-  // Agregar las variables
-  addInfoRow("Título:", content.title);
-  addInfoRow("Año:", content.year);
-  addInfoRow("Género:", content.genre);
-
-  // Director con imagen y nombre
-  let directorHTML = '';
-  if (content.director.profile) {
-    directorHTML = `
-      <div class="director-info">
-        <img src="${content.director.profile}" alt="${content.director.name}" />
-        <span>${content.director.name} (${content.director.title})</span>
-      </div>
-    `;
-  } else {
-    directorHTML = `<span>${content.director.name} (${content.director.title})</span>`;
-  }
-  addInfoRow("Director:", directorHTML);
-
-  // Reparto con imágenes y nombres
-  let repartoHTML = '<div class="cast-info">';
-  content.cast.forEach(actor => {
-    if(actor.profile){
-      repartoHTML += `
-        <div class="actor-info">
-          <img src="${actor.profile}" alt="${actor.name}" />
-          <span>${actor.name}</span>
-        </div>
-      `;
-    } else {
-      repartoHTML += `<div class="actor-info"><span>${actor.name}</span></div>`;
+        await batch.commit();
+        console.log("Historial de solicitudes limpiado.");
+        // Actualizar la tabla en la página principal
+        loadLastRequests();
+    } catch (error) {
+        console.error("Error limpiando solicitudes:", error);
     }
-  });
-  repartoHTML += '</div>';
-  addInfoRow("Reparto:", repartoHTML);
-
-  addInfoRow("Sinopsis:", content.overview);
-
-  infoDiv.appendChild(infoTable);
-  infoDiv.appendChild(solicitarBtn());
-
-  selectedContentDiv.appendChild(infoDiv);
-  selectedContentDiv.appendChild(posterDiv(content.poster));
-}
-
-// Función para crear el botón de solicitar contenido
-function solicitarBtn() {
-  const btn = document.createElement('button');
-  btn.textContent = "Solicitar Contenido";
-  btn.addEventListener('click', () => {
-    showSolicitudForm();
-  });
-  return btn;
-}
-
-// Función para mostrar el poster del contenido seleccionado
-function posterDiv(posterUrl) {
-  const div = document.createElement('div');
-  div.classList.add('poster');
-  if (posterUrl) {
-    const posterImg = document.createElement('img');
-    posterImg.src = posterUrl;
-    posterImg.alt = "Poster";
-    posterImg.style.width = "300px"; // Anotación: Cambia este valor para ajustar el ancho del poster
-    posterImg.style.height = "auto"; // Anotación: Cambia este valor para ajustar la altura del poster
-    div.appendChild(posterImg);
-  }
-  return div;
-}
-
-// Función para mostrar el formulario de solicitud
-function showSolicitudForm() {
-  solicitudContainer.style.display = "block";
 }
