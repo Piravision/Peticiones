@@ -112,15 +112,7 @@
     <!-- Formulario de Login -->
     <div class="login-container" id="loginContainer" style="display: none;">
         <h2>Iniciar Sesión (Admin)</h2>
-        <div class="form-group">
-            <label for="adminEmail">Correo Electrónico:</label>
-            <input type="email" id="adminEmail" placeholder="admin@ejemplo.com" />
-        </div>
-        <div class="form-group">
-            <label for="adminPassword">Contraseña:</label>
-            <input type="password" id="adminPassword" placeholder="Contraseña" />
-        </div>
-        <button id="btnLogin">Iniciar Sesión</button>
+        <button id="btnLoginGoogle">Iniciar Sesión con Google</button>
         <button id="btnLogout" style="display: none;">Cerrar Sesión</button>
         <p id="loginStatus"></p>
     </div>
@@ -133,14 +125,14 @@
         // Importar las funciones necesarias desde Firebase SDK
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, writeBatch } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
     
         // Tu configuración de Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyBET8zN73NmBploRE8wgq_n737eR_hxpXw",
             authDomain: "solicitudesapp-b2632.firebaseapp.com",
             projectId: "solicitudesapp-b2632",
-            storageBucket: "solicitudesapp-b2632.firebasestorage.app",
+            storageBucket: "solicitudesapp-b2632.appspot.com",
             messagingSenderId: "542690661887",
             appId: "1:542690661887:web:da612bb06f56fcd5bfc3ca"
         };
@@ -149,6 +141,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
     
         // Hacer que `db` y `auth` sean accesibles globalmente
         window.db = db;
@@ -160,7 +153,8 @@
         window.orderBy = orderBy;
         window.limit = limit;
         window.writeBatch = writeBatch;
-        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.signInWithPopup = signInWithPopup;
+        window.GoogleAuthProvider = GoogleAuthProvider;
         window.signOut = signOut;
         window.onAuthStateChanged = onAuthStateChanged;
     </script>
