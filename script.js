@@ -479,6 +479,66 @@ function showSolicitudForm() {
   solicitudContainer.style.display = "block";
 }
 
+// Evento para el botón de enviar solicitud
+btnEnviarSolicitud.addEventListener('click', async () => {
+  const userName = solicitudUsuario.value.trim();
+  const franja = solicitudFranja.value;
+
+  if (!userName || !selectedContentData) {
+    alert("Falta información: Asegúrate de haber seleccionado contenido y llenado tu nombre de usuario.");
+    return;
+  }
+
+  await addSolicitud({
+    userName,
+    title: selectedContentData.title,
+    year: selectedContentData.year,
+    type: (selectedContentData.type === 'movie') ? 'Película' : 'Serie',
+    franja,
+    poster: selectedContentData.poster
+  });
+
+  solicitudUsuario.value = "";
+  solicitudFranja.value = "Mañana";
+  solicitudContainer.style.display = "none";
+
+  // Ocultar la ficha del contenido seleccionado
+  selectedContentDiv.style.display = 'none';
+});
+
+// Función para establecer la imagen de fondo de la ficha del contenido seleccionado
+function setSelectedContentBackground(backdropUrl) {
+    if (backdropUrl) {
+        selectedContentDiv.style.backgroundImage = `url(${backdropUrl})`;
+        selectedContentDiv.style.backgroundSize = 'cover';
+        selectedContentDiv.style.backgroundPosition = 'center';
+        selectedContentDiv.style.backgroundRepeat = 'no-repeat';
+        selectedContentDiv.style.backgroundBlendMode = 'darken'; // Para mejorar la legibilidad
+    } else {
+        selectedContentDiv.style.backgroundImage = '';
+        selectedContentDiv.style.backgroundBlendMode = 'normal';
+    }
+}
+
+// Función administrativa para limpiar todas las solicitudes (Solo Admin)
+async function clearSolicitudes() {
+    try {
+        const solicitudesSnapshot = await getDocs(collection(window.db, 'solicitudes'));
+        const batch = writeBatch(window.db);
+
+        solicitudesSnapshot.forEach((docSnap) => {
+            batch.delete(docSnap.ref);
+        });
+
+        await batch.commit();
+        console.log("Historial de solicitudes limpiado.");
+        // Actualizar la tabla en la página principal
+        loadLastRequests();
+    } catch (error) {
+        console.error("Error limpiando solicitudes:", error);
+    }
+}
+
 // Funciones de Autenticación
 
 // Evento para el botón de login con Google
@@ -543,21 +603,7 @@ btnBorrarSolicitudes.addEventListener('click', async () => {
     }
 });
 
-// Función administrativa para limpiar todas las solicitudes (Solo Admin)
-async function clearSolicitudes() {
-    try {
-        const solicitudesSnapshot = await getDocs(collection(window.db, 'solicitudes'));
-        const batch = writeBatch(window.db);
-
-        solicitudesSnapshot.forEach((docSnap) => {
-            batch.delete(docSnap.ref);
-        });
-
-        await batch.commit();
-        console.log("Historial de solicitudes limpiado.");
-        // Actualizar la tabla en la página principal
-        loadLastRequests();
-    } catch (error) {
-        console.error("Error limpiando solicitudes:", error);
-    }
-}
+// Cargar las últimas solicitudes al iniciar la página
+window.onload = () => {
+    loadLastRequests();
+};
