@@ -1,7 +1,27 @@
-// Reemplaza con tu propia clave de TMDb
-const TMDB_API_KEY = "834a733b9049f196062484fc97f21452"; 
+// script.js
 
-// Elementos del DOM
+// Importar las funciones necesarias desde Firebase SDK
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, writeBatch } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+// Tu configuración de Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBET8zN73NmBploRE8wgq_n737eR_hxpXw",
+    authDomain: "solicitudesapp-b2632.firebaseapp.com",
+    projectId: "solicitudesapp-b2632",
+    storageBucket: "solicitudesapp-b2632.appspot.com",
+    messagingSenderId: "542690661887",
+    appId: "1:542690661887:web:da612bb06f56fcd5bfc3ca"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+// Variables del DOM
 const inputNombre = document.getElementById('nombre');
 const inputAnio = document.getElementById('anio');
 const btnBuscar = document.getElementById('btnBuscar');
@@ -26,10 +46,6 @@ const loginStatus = document.getElementById('loginStatus');
 // Botón para borrar solicitudes
 const btnBorrarSolicitudes = document.getElementById('btnBorrarSolicitudes');
 
-// Importar funciones necesarias desde Firestore y Auth
-const { collection, addDoc, getDocs, query, orderBy, limit, writeBatch } = window;
-const { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } = window;
-
 // Variables para el contenido seleccionado
 let selectedContentData = null;
 let selectedType = 'movie'; 
@@ -46,7 +62,7 @@ async function loadLastRequests() {
     try {
         // Crear una consulta para obtener las últimas 5 solicitudes ordenadas por timestamp descendente
         const solicitudesQuery = query(
-            collection(window.db, 'solicitudes'),
+            collection(db, 'solicitudes'),
             orderBy('timestamp', 'desc'),
             limit(5)
         );
@@ -69,7 +85,7 @@ async function loadLastRequests() {
 async function addSolicitud(solicitud) {
     try {
         // Añadir la solicitud a Firestore con un timestamp
-        await addDoc(collection(window.db, 'solicitudes'), {
+        await addDoc(collection(db, 'solicitudes'), {
             ...solicitud,
             timestamp: new Date()
         });
@@ -136,7 +152,7 @@ async function maintainSolicitudLimit(maxLimit) {
     try {
         // Obtener todas las solicitudes ordenadas por timestamp ascendente (las más antiguas primero)
         const solicitudesQuery = query(
-            collection(window.db, 'solicitudes'),
+            collection(db, 'solicitudes'),
             orderBy('timestamp', 'asc')
         );
 
@@ -145,7 +161,7 @@ async function maintainSolicitudLimit(maxLimit) {
         const totalSolicitudes = querySnapshot.size;
 
         if (totalSolicitudes > maxLimit) {
-            const batch = writeBatch(window.db);
+            const batch = writeBatch(db);
             let solicitudesToDelete = totalSolicitudes - maxLimit;
 
             querySnapshot.forEach((docSnap) => {
@@ -523,8 +539,8 @@ function setSelectedContentBackground(backdropUrl) {
 // Función administrativa para limpiar todas las solicitudes (Solo Admin)
 async function clearSolicitudes() {
     try {
-        const solicitudesSnapshot = await getDocs(collection(window.db, 'solicitudes'));
-        const batch = writeBatch(window.db);
+        const solicitudesSnapshot = await getDocs(collection(db, 'solicitudes'));
+        const batch = writeBatch(db);
 
         solicitudesSnapshot.forEach((docSnap) => {
             batch.delete(docSnap.ref);
@@ -544,7 +560,7 @@ async function clearSolicitudes() {
 // Evento para el botón de login con Google
 btnLoginGoogle.addEventListener('click', async () => {
     try {
-        await signInWithPopup(window.auth, new GoogleAuthProvider());
+        await signInWithPopup(auth, provider);
         // El estado de la interfaz se actualizará automáticamente gracias a onAuthStateChanged
     } catch (error) {
         console.error("Error al iniciar sesión con Google:", error);
@@ -555,7 +571,7 @@ btnLoginGoogle.addEventListener('click', async () => {
 // Evento para el botón de logout
 btnLogout.addEventListener('click', async () => {
     try {
-        await signOut(window.auth);
+        await signOut(auth);
         // El estado de la interfaz se actualizará automáticamente gracias a onAuthStateChanged
     } catch (error) {
         console.error("Error al cerrar sesión:", error);
@@ -564,7 +580,7 @@ btnLogout.addEventListener('click', async () => {
 });
 
 // Observador de cambios en el estado de autenticación
-onAuthStateChanged(window.auth, (user) => {
+onAuthStateChanged(auth, (user) => {
     updateUI(user);
 });
 
