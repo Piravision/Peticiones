@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petición de Contenido</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="header">
+        <div class="section-title">
+            <h1>Petición de Contenido</h1>
+        </div>
+        <div class="logo-container">
+            <img src="https://cdn.streamelements.com/uploads/fa3fe2b3-134b-4288-bfef-29948befc05f.png" alt="Logo" class="logo">
+        </div>
+        <div class="social-icons">
+            <a href="https://www.twitch.tv/piravision" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/4e340b43-7b0e-4bad-81d4-197c233827c4.png" alt="Twitch">
+            </a>
+            <a href="https://kick.com/piravision" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/9e660f91-49cb-476f-b328-8a1e5d9706ae.png" alt="Kick">
+            </a>
+            <a href="https://discord.gg/7VEzeTy55R" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/e731c1a0-344f-432d-bbf8-0590844f7e25.png" alt="Discord">
+            </a>
+            <a href="https://x.com/PiraVision" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/aecdfafd-fb1e-41d7-91ff-cc7d5cb34a32.png" alt="X (Twitter)">
+            </a>
+            <a href="https://t.me/+UD7ZygM3MrlhNjg0" target="_blank">
+                <img src="https://cdn.streamelements.com/uploads/16594692-335f-470e-9beb-fd542023ec96.png" alt="Telegram">
+            </a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="left-section">
+            <div class="search-container">
+                <div class="form-group">
+                    <label for="nombre">Nombre de la Película/Serie:</label>
+                    <input type="text" id="nombre" placeholder="Escribe el título..." />
+                </div>
+                <div class="form-group">
+                    <input type="radio" name="tipo" id="pelicula" value="movie" checked>
+                    <label for="pelicula">Película</label>
+                    <input type="radio" name="tipo" id="serie" value="tv">
+                    <label for="serie">Serie</label>
+                </div>
+                <div class="form-group">
+                    <label for="anio">Año (opcional):</label>
+                    <input type="text" id="anio" placeholder="Ej: 2000" />
+                </div>
+                <button id="btnBuscar">BUSCAR</button>
+            </div>
+
+            <table class="results-table" id="resultsTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Año</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsList">
+                    <!-- Resultados de la búsqueda -->
+                </tbody>
+            </table>
+
+            <div class="selected-content" id="selectedContent" style="display: none;">
+                <!-- Ficha del contenido seleccionado -->
+            </div>
+        </div>
+
+        <div class="right-section">
+            <h2>Últimas Solicitudes</h2>
+            <table id="tablaSolicitudes">
+                <thead>
+                    <tr>
+                        <th>Nombre de Usuario</th>
+                        <th>Título</th>
+                        <th>Año</th>
+                        <th>Tipo</th>
+                        <th>Franja Horaria</th>
+                        <th>Carátula</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Se agregan filas dinámicamente -->
+                </tbody>
+            </table>
+            <a href="ultimas_solicitudes.html" target="_blank">Ver todas las solicitudes</a>
+        </div>
+    </div>
+
+    <div class="solicitud-container" id="solicitudContainer" style="display:none;">
+        <h2>Solicitar Contenido</h2>
+        <div class="form-group">
+            <label for="solicitudUsuario">Nombre de Usuario:</label>
+            <input type="text" id="solicitudUsuario" />
+        </div>
+        <div class="form-group">
+            <label for="solicitudFranja">Franja Horaria:</label>
+            <select id="solicitudFranja">
+                <option value="Mañana">Mañana</option>
+                <option value="Tarde">Tarde</option>
+                <option value="Noche">Noche</option>
+                <option value="Madrugada">Madrugada</option>
+            </select>
+        </div>
+        <button id="btnEnviarSolicitud">Enviar Solicitud</button>
+    </div>
+
+    <!-- Formulario de Login -->
+    <div class="login-container" id="loginContainer" style="display: none;">
+        <h2>Iniciar Sesión (Admin)</h2>
+        <button id="btnLoginGoogle">Iniciar Sesión con Google</button>
+        <button id="btnLogout" style="display: none;">Cerrar Sesión</button>
+        <p id="loginStatus"></p>
+    </div>
+
+    <!-- Botón para Borrar Solicitudes (Solo para Admin) -->
+    <button id="btnBorrarSolicitudes" style="display: none;">Borrar Solicitudes</button>
+
+    <!-- Script de Firebase (type="module") -->
+    <script type="module">
+        // Importar las funciones necesarias desde Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, writeBatch } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    
+        // Tu configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBET8zN73NmBploRE8wgq_n737eR_hxpXw",
+            authDomain: "solicitudesapp-b2632.firebaseapp.com",
+            projectId: "solicitudesapp-b2632",
+            storageBucket: "solicitudesapp-b2632.appspot.com",
+            messagingSenderId: "542690661887",
+            appId: "1:542690661887:web:da612bb06f56fcd5bfc3ca"
+        };
+    
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+    
+        // Hacer que `db` y `auth` sean accesibles globalmente
+        window.db = db;
+        window.auth = auth;
+        window.collection = collection;
+        window.addDoc = addDoc;
+        window.getDocs = getDocs;
+        window.query = query;
+        window.orderBy = orderBy;
+        window.limit = limit;
+        window.writeBatch = writeBatch;
+        window.signInWithPopup = signInWithPopup;
+        window.GoogleAuthProvider = GoogleAuthProvider;
+        window.signOut = signOut;
+        window.onAuthStateChanged = onAuthStateChanged;
+    </script>
+
+    <!-- Tu script principal -->
+    <script src="script.js"></script>
+</body>
+</html>
