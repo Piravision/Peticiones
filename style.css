@@ -136,18 +136,18 @@ body {
 }
 
 .selected-content .info-table {
-    width: 80%;
+    width: 100%;
     border-collapse: collapse;
 }
 
 .selected-content .info-table td {
-    padding: 10px 20px; /* Aumentar el padding para mayor espacio */
+    padding: 10px 15px; /* Aumentar el padding para mayor espacio */
     vertical-align: top;
     font-size: 1.2em; /* Aumentar el tamaño del texto y hacerlo uniforme */
 }
 
 .selected-content .info-table td:first-child {
-    width: 100px; /* Ancho de la columna de etiquetas */
+    width: 150px; /* Ancho de la columna de etiquetas */
     font-weight: bold;
 }
 
@@ -175,8 +175,7 @@ body {
     border-radius: 5px;
 }
 
-/* Añade estos estilos en tu style.css */
-
+/* Formulario de Autenticación */
 .auth-container {
     position: fixed;
     top: 10px;
@@ -207,7 +206,7 @@ body {
     font-weight: bold; /* Opcional: Hace el texto más destacado */
 }
 
-/* Mantener los estilos actuales para Reparto */
+/* Estilos para Reparto */
 .cast-info {
     display: flex;
     align-items: center;
@@ -273,6 +272,57 @@ body {
     margin-bottom: 10px;
 }
 
+/* Estilos de la Tabla */
+.commands-table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 15px 20px; /* Espacio entre columnas y filas */
+}
+
+.commands-table th, .commands-table td {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente para las celdas */
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.commands-table th {
+    background-color: rgba(85, 85, 85, 0.9); /* Fondo oscuro para los encabezados */
+    color: #fff;
+    font-size: 1.2em;
+    text-align: center; /* Centrando el texto de los encabezados */
+}
+
+.commands-table td {
+    color: #333;
+    font-size: 1em;
+}
+
+/* Emoticons en la columna de Comando */
+.command-icon {
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+
+/* Botones en la columna de Ejemplo */
+.example-button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.example-button:hover {
+    background-color: #555;
+}
+
 /* Responsividad */
 @media only screen and (max-width: 768px) {
     .main-container {
@@ -285,7 +335,7 @@ body {
     }   
     
     .left-section, .right-section, .solicitud-container {
-        width: 50%;
+        width: 90%;
     }
     
     .solicitud-container {
@@ -299,7 +349,7 @@ body {
     }
     
     .right-section {
-        order: 4; /* Aparece al final */
+        order: 3; /* Aparece al final */
         margin-top: 20px;
     }
     
@@ -309,10 +359,10 @@ body {
     }
     
     .selected-content .poster {
-        width: 50%;
+        width: 70%;
         flex: 1;
         display: flex;
-        justify-content: center; /* Posicionar el poster en la parte superior derecha */
+        justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
         align-items: flex-start;
     }
     
@@ -328,19 +378,19 @@ body {
     
     .selected-content .director-info img {
         margin-bottom: 5px;
-        width: 35px; /* Ajustar tamaño del logo en móviles */
+        width: 40px; /* Ajustar tamaño del logo en móviles */
     }
     
     .cast-info .actor-info img {
-        max-width: 35px; /* Ajustar tamaño de las imágenes de reparto en móviles */
+        max-width: 40px; /* Ajustar tamaño de las imágenes de reparto en móviles */
     }
     
     .cast-info .actor-info span {
-        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
+        font-size: 1em; /* Ajustar tamaño del texto en móviles */
     }
     
     .selected-content .info-table td {
-        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
+        font-size: 1em; /* Ajustar tamaño del texto en móviles */
     }
     
     .logo {
@@ -360,11 +410,11 @@ body {
     }
     
     .left-section, .right-section, .solicitud-container {
-        width: 100%;
+        width: 90%;
     }
     
     .solicitud-container {
-        order: 4; /* Aparece primero */
+        order: 1; /* Aparece primero */
         margin-bottom: 20px; /* Espacio inferior */
     }
     
@@ -397,7 +447,7 @@ body {
     }
     
     .selected-content .info-table td:first-child {
-        width: 100px; /* Ajustar el ancho de las etiquetas en móviles */
+        width: 90px; /* Ajustar el ancho de las etiquetas en móviles */
     }
     
     .selected-content .director-info {
@@ -416,11 +466,11 @@ body {
     }
     
     .cast-info .actor-info span {
-        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
+        font-size: 1em; /* Ajustar tamaño del texto en móviles */
     }
     
     .selected-content .info-table td {
-        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
+        font-size: 1em; /* Ajustar tamaño del texto en móviles */
     }
     
     .logo {
@@ -433,6 +483,22 @@ body {
     }
 }
 
+/* Espaciado entre Columnas y Filas en la Tabla */
+@media (max-width: 768px) {
+    .commands-table {
+        border-spacing: 10px 15px; /* Reducir espacio entre columnas y filas */
+    }
+}
 
+@media (max-width: 480px) {
+    .commands-table {
+        border-spacing: 8px 10px; /* Reducir aún más espacio en pantallas muy pequeñas */
+    }
+}
 
-
+/* Reducción del tamaño de los Emojis en Pantallas Pequeñas */
+@media (max-width: 480px) {
+    .command-icon {
+        font-size: 1em; /* Reducir tamaño de los emojis */
+    }
+}
