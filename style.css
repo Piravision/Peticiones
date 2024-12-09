@@ -1,3 +1,4 @@
+/* Estilos Generales */
 body {
     font-family: Arial, sans-serif;
     background-color: #d9d9d9;
@@ -56,11 +57,11 @@ body {
 }
 
 .left-section {
-    width: 65%;
+    width: 90%;
 }
 
 .right-section {
-    width: 30%;
+    width: 50%;
     background: #fff;
     padding: 10px;
     border-radius: 10px;
@@ -194,8 +195,6 @@ body {
     box-sizing: border-box;
 }
 
-
-
 .director-info span {
     /* Eliminado font-size individual para uniformidad */
     font-weight: bold; /* Opcional: Hace el texto más destacado */
@@ -272,14 +271,15 @@ body {
         flex-direction: column;
     }
     .header {
-     flex-direction: column;
-     align-items: center; /* Centrar elementos */
-     }   
+        flex-direction: column;
+        align-items: center; /* Centrar elementos */
+    }   
     .left-section, .right-section {
         width: 90%;
     }
     .right-section {
         margin-top: 20px;
+        order: 2; /* Asegurar que aparezca al final */
     }
     .selected-content {
         flex-direction: column;
@@ -291,7 +291,6 @@ body {
         display: flex;
         justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
         align-items: flex-start;
-
     }
     .selected-content .info-table td:first-child {
         width: 100px; /* Ajustar el ancho de las etiquetas en móviles */
@@ -315,27 +314,29 @@ body {
         font-size: 1em; /* Ajustar tamaño del texto en móviles */
     }
     .logo {
-     height: 100px; /* Tamaño más pequeño del logo */
-    
-    .social-icons img {
-     width: 35px;
-     height: 35px;
+        height: 100px; /* Tamaño más pequeño del logo */
     }
-    /* Ajustes adicionales para dispositivos muy pequeños */
+    .social-icons img {
+        width: 35px;
+        height: 35px;
+    }
+}
+
 @media (max-width: 480px) {
     .main-container {
-    flex-direction: column;
+        flex-direction: column;
     }
     .left-section, .right-section {
         width: 90%;
     }
     .right-section {
         margin-top: 20px;
+        order: 2; /* Asegurar que aparezca al final */
     }
     .header {
-     flex-direction: column;
-     align-items: center; /* Centrar elementos */
-    }   
+        flex-direction: column;
+        align-items: center; /* Centrar elementos */
+    }
     .selected-content {
         flex-direction: column;
         background: rgba(0, 0, 0, 0.7); /* Aumentar la opacidad en móviles */
@@ -369,12 +370,82 @@ body {
         font-size: 1em; /* Ajustar tamaño del texto en móviles */
     }
     .logo {
-     height: 100px; /* Tamaño más pequeño del logo */
-        
-    }   
-    .social-icons img {
-     width: 35px;
-     height: 35px;
+        height: 100px; /* Tamaño más pequeño del logo */
     }
-        
+    .social-icons img {
+        width: 35px;
+        height: 35px;
+    }
 }
+
+/* Estilos de la Tabla */
+.commands-table {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 15px 20px; /* Espacio entre columnas y filas */
+}
+
+.commands-table th, .commands-table td {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente para las celdas */
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.commands-table th {
+    background-color: rgba(85, 85, 85, 0.9); /* Fondo oscuro para los encabezados */
+    color: #fff;
+    font-size: 1.2em;
+    text-align: center; /* Centrando el texto de los encabezados */
+}
+
+.commands-table td {
+    color: #333;
+    font-size: 1em;
+}
+
+/* Emoticons en la columna de Comando */
+.command-icon {
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+
+/* Botones en la columna de Ejemplo */
+.example-button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.example-button:hover {
+    background-color: #555;
+}
+
+/* Reducción del tamaño de los Emojis en Pantallas Pequeñas */
+@media (max-width: 480px) {
+    .command-icon {
+        font-size: 1em; /* Reducir tamaño de los emojis */
+    }
+}
+
+/* Espaciado entre Columnas y Filas en la Tabla */
+@media (max-width: 768px) {
+    .commands-table {
+        border-spacing: 10px 15px; /* Reducir espacio entre columnas y filas */
+    }
+}
+
+@media (max-width: 480px) {
+    .commands-table {
+        border-spacing: 8px 10px; /* Reducir aún más espacio en pantallas muy pequeñas */
+    }
+}
+
