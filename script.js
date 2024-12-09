@@ -468,6 +468,33 @@ function showSelectedContent(content) {
   selectedContentDiv.appendChild(posterDiv(content.poster));
 }
 
+// Función para crear el botón de solicitar contenido
+function solicitarBtn() {
+  const btn = document.createElement('button');
+  btn.textContent = "Solicitar Contenido";
+  btn.style.marginTop = '20px'; // Añadir margen superior para separación
+  btn.addEventListener('click', () => {
+    showSolicitudForm(btn); // Pasamos el botón como argumento
+  });
+  return btn;
+}
+
+// Función para mostrar el formulario de solicitud
+function showSolicitudForm(button) {
+  solicitudContainer.style.display = "block";
+
+  if (window.innerWidth <= 768) { // Pantallas pequeñas
+    // Mover la solicitudContainer justo después del botón
+    button.parentElement.insertAdjacentElement('afterend', solicitudContainer);
+  } else {
+    // Mover la solicitudContainer de vuelta a .main-container si es necesario
+    const mainContainer = document.querySelector('.main-container');
+    if (solicitudContainer.parentElement !== mainContainer) {
+      mainContainer.appendChild(solicitudContainer);
+    }
+  }
+}
+
 // Función para mostrar el poster del contenido seleccionado
 function posterDiv(posterUrl) {
   const div = document.createElement('div');
@@ -483,32 +510,6 @@ function posterDiv(posterUrl) {
   return div;
 }
 
-// Función para crear el botón de solicitar contenido
-function solicitarBtn() {
-  const btn = document.createElement('button');
-  btn.textContent = "Solicitar Contenido";
-  btn.addEventListener('click', () => {
-    showSolicitudForm(btn);
-  });
-  return btn;
- }
-
-// Función para mostrar el formulario de solicitud
-function showSolicitudForm(button) {
-  solicitudContainer.style.display = "block";
-  if (window.innerWidth <= 768) { // Pantallas pequeñas
-    // Mover la solicitudContainer justo después del botón
-    button.parentElement.insertAdjacentElement('afterend', solicitudContainer);
-  } else {
-    // Mover la solicitudContainer de vuelta a .main-container si es necesario
-    const mainContainer = document.querySelector('.main-container');
-    if (solicitudContainer.parentElement !== mainContainer) {
-      mainContainer.appendChild(solicitudContainer);
-    }
-  }
-}
-
-
 // Evento para el botón de enviar solicitud
 btnEnviarSolicitud.addEventListener('click', async () => {
   const userName = solicitudUsuario.value.trim();
@@ -549,47 +550,6 @@ window.addEventListener('resize', () => {
     showSolicitudForm(btnSolicitar);
   }
 });
-// Evento para el botón de enviar solicitud
-btnEnviarSolicitud.addEventListener('click', async () => {
-  const userName = solicitudUsuario.value.trim();
-  const franja = solicitudFranja.value;
-
-  if (!userName || !selectedContentData) {
-    alert("Falta información: Asegúrate de haber seleccionado contenido y llenado tu nombre de usuario.");
-    return;
-  }
-
-  await addSolicitud({
-    userName,
-    title: selectedContentData.title,
-    year: selectedContentData.year,
-    type: (selectedContentData.type === 'movie') ? 'Película' : 'Serie',
-    franja,
-    poster: selectedContentData.poster
-  });
-
-  solicitudUsuario.value = "";
-  solicitudFranja.value = "Mañana";
-  solicitudContainer.style.display = "none";
-
-  // Reubicar la solicitudContainer de vuelta a .main-container en pantallas pequeñas
-  if (window.innerWidth <= 768) {
-    const mainContainer = document.querySelector('.main-container');
-    mainContainer.appendChild(solicitudContainer);
-  }
-
-  // Ocultar la ficha del contenido seleccionado
-  selectedContentDiv.style.display = 'none';
-});
-
-// Reubicar la solicitudContainer al redimensionar la ventana
-window.addEventListener('resize', () => {
-  if (solicitudContainer.style.display === "block") {
-    const btnSolicitar = selectedContentDiv.querySelector('button');
-    showSolicitudForm(btnSolicitar);
-  }
-});
-
 
 // Función para establecer la imagen de fondo de la ficha del contenido seleccionado
 function setSelectedContentBackground(backdropUrl) {
