@@ -286,7 +286,7 @@ body {
         background: rgba(0, 0, 0, 0.7); /* Aumentar la opacidad en móviles */
     }
     .selected-content .poster {
-        width: 80%;
+        width: 70%;
         justify-content: center;
     }
     .selected-content .info-table td:first-child {
@@ -295,7 +295,7 @@ body {
     .selected-content .director-info {
         flex-direction: column; /* Asegurar columna en móviles */
         align-items: center;
-        padding-bottom: 10px; /* Espacio debajo de la sección del Director en móviles */
+        padding-bottom: 5px; /* Espacio debajo de la sección del Director en móviles */
     }
     .selected-content .director-info img {
         margin-bottom: 5px;
@@ -311,7 +311,7 @@ body {
         font-size: 1em; /* Ajustar tamaño del texto en móviles */
     }
     .logo {
-     height: 120px; /* Tamaño más pequeño del logo */
+     height: 100px; /* Tamaño más pequeño del logo */
     
     .social-icons img {
      width: 35px;
@@ -337,11 +337,11 @@ body {
         background: rgba(0, 0, 0, 0.7); /* Aumentar la opacidad en móviles */
     }
     .selected-content .poster {
-        width: 80%;
+        width: 60%;
         justify-content: center;
     }
     .selected-content .info-table td:first-child {
-        width: 100px; /* Ajustar el ancho de las etiquetas en móviles */
+        width: 90px; /* Ajustar el ancho de las etiquetas en móviles */
     }
     .selected-content .director-info {
         flex-direction: column; /* Asegurar columna en móviles */
@@ -350,10 +350,10 @@ body {
     }
     .selected-content .director-info img {
         margin-bottom: 5px;
-        width: 40px; /* Ajustar tamaño del logo en móviles */
+        width: 35px; /* Ajustar tamaño del logo en móviles */
     }
     .cast-info .actor-info img {
-        max-width: 40px; /* Ajustar tamaño de las imágenes de reparto en móviles */
+        max-width: 35px; /* Ajustar tamaño de las imágenes de reparto en móviles */
     }
     .cast-info .actor-info span {
         font-size: 1em; /* Ajustar tamaño del texto en móviles */
