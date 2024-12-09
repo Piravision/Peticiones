@@ -287,7 +287,11 @@ body {
     }
     .selected-content .poster {
         width: 70%;
-        justify-content: center;
+        flex: 1;
+        display: flex;
+        justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
+        align-items: flex-start;
+
     }
     .selected-content .info-table td:first-child {
         width: 100px; /* Ajustar el ancho de las etiquetas en móviles */
@@ -337,8 +341,11 @@ body {
         background: rgba(0, 0, 0, 0.7); /* Aumentar la opacidad en móviles */
     }
     .selected-content .poster {
-        width: 60%;
-        justify-content: center;
+        width: 50%;
+        flex: 1;
+        display: flex;
+        justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
+        align-items: flex-start;
     }
     .selected-content .info-table td:first-child {
         width: 90px; /* Ajustar el ancho de las etiquetas en móviles */
