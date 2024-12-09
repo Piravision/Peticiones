@@ -327,7 +327,7 @@ body {
     flex-direction: column;
     }
     .left-section, .right-section {
-        width: 90%;
+        width: 100%;
     }
     .right-section {
         margin-top: 20px;
@@ -344,11 +344,11 @@ body {
         width: 50%;
         flex: 1;
         display: flex;
-        justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
+        justify-content: center; /* Posicionar el poster en la parte superior derecha */
         align-items: flex-start;
     }
     .selected-content .info-table td:first-child {
-        width: 90px; /* Ajustar el ancho de las etiquetas en móviles */
+        width: 100px; /* Ajustar el ancho de las etiquetas en móviles */
     }
     .selected-content .director-info {
         flex-direction: column; /* Asegurar columna en móviles */
@@ -363,10 +363,10 @@ body {
         max-width: 35px; /* Ajustar tamaño de las imágenes de reparto en móviles */
     }
     .cast-info .actor-info span {
-        font-size: 1em; /* Ajustar tamaño del texto en móviles */
+        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
     }
     .selected-content .info-table td {
-        font-size: 1em; /* Ajustar tamaño del texto en móviles */
+        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
     }
     .logo {
      height: 100px; /* Tamaño más pequeño del logo */
