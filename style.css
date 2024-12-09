@@ -61,7 +61,7 @@ body {
 }
 
 .right-section {
-    width: 50%;
+    width: 100%;
     background: #fff;
     padding: 10px;
     border-radius: 10px;
@@ -134,7 +134,7 @@ body {
 }
 
 .selected-content .info-table td {
-    padding: 10px 15px; /* Aumentar el padding para mayor espacio */
+    padding: 10px 10px; /* Aumentar el padding para mayor espacio */
     vertical-align: top;
     font-size: 1.2em; /* Aumentar el tamaño del texto y hacerlo uniforme */
 }
@@ -181,7 +181,7 @@ body {
 }
 
 .auth-container .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 .auth-container label {
@@ -213,7 +213,7 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .cast-info .actor-info img {
@@ -334,7 +334,7 @@ body {
     
     .right-section {
         margin-top: 20px;
-        order: 2; /* Asegurar que aparezca al final */
+        order: 3; /* Asegurar que aparezca al final */
     }
     
     .selected-content {
@@ -343,7 +343,7 @@ body {
     }
     
     .selected-content .poster {
-        width: 70%;
+        width: 40%;
         flex: 1;
         display: flex;
         justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
@@ -366,15 +366,15 @@ body {
     }
     
     .cast-info .actor-info img {
-        max-width: 40px; /* Ajustar tamaño de las imágenes de reparto en móviles */
+        max-width: 35px; /* Ajustar tamaño de las imágenes de reparto en móviles */
     }
     
     .cast-info .actor-info span {
-        font-size: 1em; /* Ajustar tamaño del texto en móviles */
+        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
     }
     
     .selected-content .info-table td {
-        font-size: 1em; /* Ajustar tamaño del texto en móviles */
+        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
     }
     
     .logo {
@@ -394,12 +394,12 @@ body {
     }
     
     .left-section, .right-section {
-        width: 90%;
+        width: 100%;
     }
     
     .right-section {
         margin-top: 20px;
-        order: 2; /* Asegurar que aparezca al final */
+        order: 3; /* Asegurar que aparezca al final */
     }
     
     .header {
@@ -416,12 +416,12 @@ body {
         width: 50%;
         flex: 1;
         display: flex;
-        justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
+        justify-content: center; /* Posicionar el poster en la parte superior derecha */
         align-items: flex-start;
     }
     
     .selected-content .info-table td:first-child {
-        width: 90px; /* Ajustar el ancho de las etiquetas en móviles */
+        width: 100px; /* Ajustar el ancho de las etiquetas en móviles */
     }
     
     .selected-content .director-info {
@@ -440,11 +440,11 @@ body {
     }
     
     .cast-info .actor-info span {
-        font-size: 1em; /* Ajustar tamaño del texto en móviles */
+        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
     }
     
     .selected-content .info-table td {
-        font-size: 1em; /* Ajustar tamaño del texto en móviles */
+        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
     }
     
     .logo {
@@ -457,22 +457,4 @@ body {
     }
 }
 
-/* Espaciado entre Columnas y Filas en la Tabla */
-@media (max-width: 768px) {
-    .commands-table {
-        border-spacing: 10px 15px; /* Reducir espacio entre columnas y filas */
-    }
-}
 
-@media (max-width: 480px) {
-    .commands-table {
-        border-spacing: 8px 10px; /* Reducir aún más espacio en pantallas muy pequeñas */
-    }
-}
-
-/* Reducción del tamaño de los Emojis en Pantallas Pequeñas */
-@media (max-width: 480px) {
-    .command-icon {
-        font-size: 1em; /* Reducir tamaño de los emojis */
-    }
-}
