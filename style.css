@@ -91,28 +91,145 @@ body {
 .results-table th, .results-table td {
     border: 1px solid #ccc;
     padding: 8px;
-    text-align: center; /* Alineación centrada según tu último mensaje */
-    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente */
-    font-size: 1.2em;
+    text-align: left;
 }
 
 .results-table th {
-    background-color: rgba(242, 242, 242, 0.9);
+    background-color: #f2f2f2;
 }
 
-.results-table img {
-    width: 50px;
-    max-width: 50px;
+.result-item {
+    cursor: pointer;
+    padding: 8px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.result-item:hover {
+    background: #f2f2f2;
+}
+
+.selected-content {
+    background: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente para mejor legibilidad */
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    gap: 20px;
+    position: relative;
+    color: #fff; /* Cambiar color del texto a blanco para contrastar con el fondo */
+    text-shadow: 1px 1px 2px #000; /* Añadir sombra al texto para mejorar la legibilidad */
+}
+
+.selected-content .info {
+    flex: 2;
+}
+
+.selected-content .poster {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
+    align-items: flex-start;
+}
+
+.selected-content .info-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.selected-content .info-table td {
+    padding: 10px 15px; /* Aumentar el padding para mayor espacio */
+    vertical-align: top;
+    font-size: 1.2em; /* Aumentar el tamaño del texto y hacerlo uniforme */
+}
+
+.selected-content .info-table td:first-child {
+    width: 150px; /* Ancho de la columna de etiquetas */
+    font-weight: bold;
+}
+
+.selected-content .info-table td:last-child {
+    width: auto;
+}
+
+.selected-content .info-table strong {
+    font-weight: bold;
+}
+
+/* Estilos para Director */
+.director-info {
+    display: flex;
+    flex-direction: column; /* Apilar verticalmente */
+    align-items: left; /* Centrar horizontalmente */
+    gap: 5px; /* Espacio entre imagen y texto */
+    padding-bottom: 15px; /* Espacio debajo de la sección del Director */
+}
+
+.director-info img {
+    max-width: 70px; /* Limita el ancho máximo a 70px */
+    width: 100%;      /* La imagen ocupará el 100% del contenedor hasta el max-width */
+    height: auto;
     border-radius: 5px;
 }
 
-.logo-es {
-    width: 300px;
-    height: auto;
-    margin-bottom: 10px;
+/* Autenticación */
+.auth-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255,255,255,0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-/* Sección de Solicitud de Contenido */
+.auth-container .form-group {
+    margin-bottom: 15px;
+}
+
+.auth-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.auth-container input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.director-info span {
+    /* Eliminado font-size individual para uniformidad */
+    font-weight: bold; /* Opcional: Hace el texto más destacado */
+}
+
+/* Estilos para Reparto */
+.cast-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cast-info .actor-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.cast-info .actor-info img {
+    max-width: 70px; /* Limita el ancho máximo a 70px */
+    width: 100%;      /* La imagen ocupará el 100% del contenedor hasta el max-width */
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.cast-info .actor-info span {
+    /* Eliminado font-size individual para uniformidad */
+    font-weight: bold; /* Opcional: Hace el texto más destacado */
+}
+
 .solicitud-container {
     background: #fff;
     padding: 20px;
@@ -121,18 +238,18 @@ body {
     display: none; /* Ocultar por defecto */
 }
 
-/* Estilos de la Tabla de Solicitudes */
 #tablaSolicitudes {
     width: 100%;
     border-collapse: collapse;
+    /* Remover imagen de fondo aquí */
 }
 
 #tablaSolicitudes th, #tablaSolicitudes td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    font-size: 1.2em;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para cada celda */
+    font-size: 1.2em; /* Aumentar el tamaño del texto y hacerlo uniforme */
 }
 
 #tablaSolicitudes th {
@@ -141,8 +258,14 @@ body {
 
 #tablaSolicitudes img {
     width: 50px;
-    max-width: 50px;
+    max-width: 50px; /* Asegurar que no sea demasiado grande */
     border-radius: 5px;
+}
+
+.logo-es {
+    width: 300px; /* Redimensionar el logo en castellano o inglés */
+    height: auto;
+    margin-bottom: 10px;
 }
 
 /* Responsividad */
@@ -206,7 +329,7 @@ body {
         flex-direction: column;
     }
     .left-section, .right-section {
-        width: 90%;
+        width: 100%; /* Ajustado a 100% para mejor alineación */
     }
     .right-section {
         margin-top: 20px;
@@ -223,11 +346,11 @@ body {
         width: 50%;
         flex: 1;
         display: flex;
-        justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
+        justify-content: center; /* Centrar el poster en pantallas muy pequeñas */
         align-items: flex-start;
     }
     .selected-content .info-table td:first-child {
-        width: 90px; /* Ajustar el ancho de las etiquetas en móviles */
+        width: 100px; /* Ajustar el ancho de las etiquetas en móviles */
     }
     .selected-content .director-info {
         flex-direction: column; /* Asegurar columna en móviles */
@@ -242,10 +365,10 @@ body {
         max-width: 35px; /* Ajustar tamaño de las imágenes de reparto en móviles */
     }
     .cast-info .actor-info span {
-        font-size: 1em; /* Ajustar tamaño del texto en móviles */
+        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
     }
     .selected-content .info-table td {
-        font-size: 1em; /* Ajustar tamaño del texto en móviles */
+        font-size: 0.9em; /* Ajustar tamaño del texto en móviles */
     }
     .logo {
         height: 100px; /* Tamaño más pequeño del logo */
