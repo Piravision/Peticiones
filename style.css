@@ -272,7 +272,7 @@ body {
         flex-direction: column;
     }
     .left-section, .right-section {
-        width: 100%;
+        width: 90%;
     }
     .right-section {
         margin-top: 20px;
@@ -282,7 +282,7 @@ body {
         background: rgba(0, 0, 0, 0.7); /* Aumentar la opacidad en móviles */
     }
     .selected-content .poster {
-        width: 100%;
+        width: 80%;
         justify-content: center;
     }
     .selected-content .info-table td:first-child {
@@ -295,7 +295,7 @@ body {
     }
     .selected-content .director-info img {
         margin-bottom: 5px;
-        width: 60px; /* Ajustar tamaño del logo en móviles */
+        width: 40px; /* Ajustar tamaño del logo en móviles */
     }
     .cast-info .actor-info img {
         max-width: 40px; /* Ajustar tamaño de las imágenes de reparto en móviles */
@@ -306,4 +306,10 @@ body {
     .selected-content .info-table td {
         font-size: 1em; /* Ajustar tamaño del texto en móviles */
     }
+    .logo {
+                height: 120px; /* Tamaño más pequeño del logo */
+    .social-icons img {
+                width: 35px;
+                height: 35px;
+            }
 }
