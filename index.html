@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <!-- Cabecera -->
     <div class="header">
         <div class="section-title">
             <h1>Petición de Contenido</h1>
@@ -33,7 +34,28 @@
         </div>
     </div>
 
+    <!-- Contenedor Principal -->
     <div class="main-container">
+        <!-- Sección de Solicitud de Contenido -->
+        <div class="solicitud-container" id="solicitudContainer" style="display: block;">
+            <h2>Solicitar Contenido</h2>
+            <div class="form-group">
+                <label for="solicitudUsuario">Nombre de Usuario:</label>
+                <input type="text" id="solicitudUsuario" />
+            </div>
+            <div class="form-group">
+                <label for="solicitudFranja">Franja Horaria:</label>
+                <select id="solicitudFranja">
+                    <option value="Mañana">Mañana</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noche">Noche</option>
+                    <option value="Madrugada">Madrugada</option>
+                </select>
+            </div>
+            <button id="btnEnviarSolicitud">Enviar Solicitud</button>
+        </div>
+
+        <!-- Sección Izquierda -->
         <div class="left-section">
             <div class="search-container">
                 <div class="form-group">
@@ -70,6 +92,7 @@
             </div>
         </div>
 
+        <!-- Sección Derecha -->
         <div class="right-section">
             <h2>Últimas Solicitudes</h2>
             <table id="tablaSolicitudes">
@@ -89,24 +112,6 @@
             </table>
             <a href="ultimas_solicitudes.html" target="_blank">Ver todas las solicitudes</a>
         </div>
-    </div>
-
-    <div class="solicitud-container" id="solicitudContainer" style="display:none;">
-        <h2>Solicitar Contenido</h2>
-        <div class="form-group">
-            <label for="solicitudUsuario">Nombre de Usuario:</label>
-            <input type="text" id="solicitudUsuario" />
-        </div>
-        <div class="form-group">
-            <label for="solicitudFranja">Franja Horaria:</label>
-            <select id="solicitudFranja">
-                <option value="Mañana">Mañana</option>
-                <option value="Tarde">Tarde</option>
-                <option value="Noche">Noche</option>
-                <option value="Madrugada">Madrugada</option>
-            </select>
-        </div>
-        <button id="btnEnviarSolicitud">Enviar Solicitud</button>
     </div>
 
     <!-- Formulario de Login -->
