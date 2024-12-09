@@ -319,8 +319,8 @@ body {
     }
     /* Ajustes adicionales para dispositivos muy pequeños */
 @media (max-width: 480px) {
-        .main-container {
-        flex-direction: column;
+    .main-container {
+    flex-direction: column;
     }
     .left-section, .right-section {
         width: 90%;
@@ -331,6 +331,7 @@ body {
     .header {
      flex-direction: column;
      align-items: center; /* Centrar elementos */
+    }   
     .selected-content {
         flex-direction: column;
         background: rgba(0, 0, 0, 0.7); /* Aumentar la opacidad en móviles */
@@ -361,7 +362,7 @@ body {
         font-size: 1em; /* Ajustar tamaño del texto en móviles */
     }
     .logo {
-     height: 120px; /* Tamaño más pequeño del logo */
+     height: 100px; /* Tamaño más pequeño del logo */
         
     }   
     .social-icons img {
