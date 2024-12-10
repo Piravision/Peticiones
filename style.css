@@ -239,6 +239,7 @@ body {
     border-radius: 10px;
     display: none; /* Ocultar por defecto */
     color: #333; /* Asegurar legibilidad */
+    opacity: 1;
 }
 
 #tablaSolicitudes {
@@ -281,20 +282,20 @@ body {
         align-items: center; /* Centrar elementos */
     }   
     .left-section, .right-section {
-        width: 90%;
+        width: 100%;
     }
     .right-section {
-        margin-top: 20px;
+        margin-top: 10px;
     }
     .selected-content {
         flex-direction: column;
         background: rgba(0, 0, 0, 0.7); /* Aumentar la opacidad en móviles */
     }
     .selected-content .poster {
-        width: 50%;
+        width: 30%;
         flex: 1;
         display: flex;
-        justify-content: center; /* Centrar el póster */
+        justify-content: right; /* Centrar el póster */
         align-items: flex-start;
     }
     .selected-content .info-table td:first-child {
@@ -353,7 +354,7 @@ body {
         align-items: flex-start;
     }
     .selected-content .info-table td:first-child {
-        width: 100px; /* Ajustar el ancho de las etiquetas en móviles */
+        width: 120px; /* Ajustar el ancho de las etiquetas en móviles */
     }
     .selected-content .director-info {
         flex-direction: column; /* Asegurar columna en móviles */
