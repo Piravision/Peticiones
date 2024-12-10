@@ -124,10 +124,10 @@ body {
     flex: 2;
 }
 
-selected-content .poster {
+.selected-content .poster {
     flex: 1;
     display: flex;
-    justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
+    justify-content: flex-end; /* Posicionar el póster en la parte superior derecha */
     align-items: flex-start;
 }
 
@@ -292,23 +292,23 @@ selected-content .poster {
         background: rgba(0, 0, 0, 0.7); /* Aumentar la opacidad en móviles */
     }
     .selected-content .poster {
-        width: 30%;
-        flex: 1;
+        width: 100%;
+        flex: none;
         display: flex;
-        justify-content: centrar; /* Centrar el póster */
+        justify-content: center; /* Centrar el póster */
         align-items: flex-start;
     }
     .selected-content .info-table td:first-child {
-        width: 100px; /* Ajustar el ancho de las etiquetas en móviles */
+        width: 120px; /* Ajustar el ancho de las etiquetas en móviles */
     }
     .selected-content .director-info {
         flex-direction: column; /* Asegurar columna en móviles */
         align-items: center;
-        padding-bottom: 5px; /* Espacio debajo de la sección del Director en móviles */
+        padding-bottom: 10px; /* Espacio debajo de la sección del Director en móviles */
     }
     .selected-content .director-info img {
         margin-bottom: 5px;
-        width: 40px; /* Ajustar tamaño del logo en móviles */
+        width: 35px; /* Ajustar tamaño del logo en móviles */
     }
     .cast-info .actor-info img {
         max-width: 35px; /* Ajustar tamaño de las imágenes de reparto en móviles */
@@ -347,8 +347,8 @@ selected-content .poster {
         background: rgba(0, 0, 0, 0.7); /* Aumentar la opacidad en móviles */
     }
     .selected-content .poster {
-        width: 30%;
-        flex: 1;
+        width: 100%;
+        flex: none;
         display: flex;
         justify-content: center; /* Centrar el póster en pantallas muy pequeñas */
         align-items: flex-start;
