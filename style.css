@@ -127,7 +127,7 @@ body {
 .selected-content .poster {
     flex: 1;
     display: flex;
-    justify-content: center; /* Centrar el póster */
+    justify-content: flex-end; /* Centrar el póster */
     align-items: flex-start;
 }
 
