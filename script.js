@@ -243,7 +243,7 @@ async function searchInTMDB(query, type, year) {
 
     // Filtrar por año < 2006
     const filteredResults = results.filter(r => {
-      return r.year && parseInt(r.year) < 2006;
+      return r.year && parseInt(r.year) < 2030;
     });
 
     return filteredResults;
