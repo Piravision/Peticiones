@@ -473,6 +473,7 @@ function solicitarBtn() {
   const btn = document.createElement('button');
   btn.textContent = "Solicitar Contenido";
   btn.style.marginTop = '20px'; // Añadir margen superior para separación
+  btn.id = 'btnSolicitarContenido'; // Añadir ID para referencia
   btn.addEventListener('click', () => {
     showSolicitudForm(btn); // Pasamos el botón como argumento
   });
@@ -487,10 +488,10 @@ function showSolicitudForm(button) {
     // Mover la solicitudContainer justo después del botón
     button.parentElement.insertAdjacentElement('afterend', solicitudContainer);
   } else {
-    // Mover la solicitudContainer de vuelta a .main-container si es necesario
-    const mainContainer = document.querySelector('.main-container');
-    if (solicitudContainer.parentElement !== mainContainer) {
-      mainContainer.appendChild(solicitudContainer);
+    // Asegurar que la solicitudContainer está dentro de la left-section
+    const leftSection = document.querySelector('.left-section');
+    if (!leftSection.contains(solicitudContainer)) {
+      leftSection.appendChild(solicitudContainer);
     }
   }
 }
@@ -533,10 +534,10 @@ btnEnviarSolicitud.addEventListener('click', async () => {
   solicitudFranja.value = "Mañana";
   solicitudContainer.style.display = "none";
 
-  // Reubicar la solicitudContainer de vuelta a .main-container en pantallas pequeñas
-  if (window.innerWidth <= 768) {
-    const mainContainer = document.querySelector('.main-container');
-    mainContainer.appendChild(solicitudContainer);
+  // Reubicar la solicitudContainer de vuelta a .left-section en pantallas grandes
+  if (window.innerWidth > 768) {
+    const leftSection = document.querySelector('.left-section');
+    leftSection.appendChild(solicitudContainer);
   }
 
   // Ocultar la ficha del contenido seleccionado
@@ -546,8 +547,10 @@ btnEnviarSolicitud.addEventListener('click', async () => {
 // Reubicar la solicitudContainer al redimensionar la ventana
 window.addEventListener('resize', () => {
   if (solicitudContainer.style.display === "block") {
-    const btnSolicitar = selectedContentDiv.querySelector('button');
-    showSolicitudForm(btnSolicitar);
+    const btnSolicitar = document.getElementById('btnSolicitarContenido');
+    if (btnSolicitar) {
+      showSolicitudForm(btnSolicitar);
+    }
   }
 });
 
