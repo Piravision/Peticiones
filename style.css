@@ -124,10 +124,10 @@ body {
     flex: 2;
 }
 
-.selected-content .poster {
+selected-content .poster {
     flex: 1;
     display: flex;
-    justify-content: flex-end; /* Centrar el póster */
+    justify-content: flex-end; /* Posicionar el poster en la parte superior derecha */
     align-items: flex-start;
 }
 
@@ -295,7 +295,7 @@ body {
         width: 30%;
         flex: 1;
         display: flex;
-        justify-content: right; /* Centrar el póster */
+        justify-content: centrar; /* Centrar el póster */
         align-items: flex-start;
     }
     .selected-content .info-table td:first-child {
