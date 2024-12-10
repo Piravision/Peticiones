@@ -59,11 +59,11 @@ body {
 }
 
 .left-section {
-    width: 100%;
+    width: 70%; /* Ajustado a 70% para pantallas grandes */
 }
 
 .right-section {
-    width: 100%;
+    width: 28%; /* Ajustado a 28% para pantallas grandes, sumando 98% con left-section */
     background: #fff;
     padding: 10px;
     border-radius: 10px;
@@ -113,6 +113,7 @@ body {
     padding: 20px;
     border-radius: 10px;
     display: flex;
+    flex-direction: column; /* Inicialmente columna para pantallas pequeñas */
     gap: 20px;
     position: relative;
     color: #fff; /* Cambiar color del texto a blanco para contrastar con el fondo */
@@ -126,7 +127,7 @@ body {
 .selected-content .poster {
     flex: 1;
     display: flex;
-    justify-content: center; /* Posicionar el poster en la parte superior derecha */
+    justify-content: center; /* Centrar el póster */
     align-items: flex-start;
 }
 
@@ -158,7 +159,7 @@ body {
 .director-info {
     display: flex;
     flex-direction: column; /* Apilar verticalmente */
-    align-items: left; /* Centrar horizontalmente */
+    align-items: flex-start; /* Alinear a la izquierda */
     gap: 5px; /* Espacio entre imagen y texto */
     padding-bottom: 15px; /* Espacio debajo de la sección del Director */
 }
@@ -179,6 +180,7 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    color: #333; /* Asegurar que el texto es legible */
 }
 
 .auth-container .form-group {
@@ -236,6 +238,7 @@ body {
     margin: 20px;
     border-radius: 10px;
     display: none; /* Ocultar por defecto */
+    color: #333; /* Asegurar legibilidad */
 }
 
 #tablaSolicitudes {
@@ -291,7 +294,7 @@ body {
         width: 50%;
         flex: 1;
         display: flex;
-        justify-content: center; /* Posicionar el poster en la parte superior derecha */
+        justify-content: center; /* Centrar el póster */
         align-items: flex-start;
     }
     .selected-content .info-table td:first-child {
@@ -322,7 +325,7 @@ body {
         width: 35px;
         height: 35px;
     }
-}
+} /* Cierre de la media query max-width:768px */
 
 @media (max-width: 480px) {
     .main-container {
@@ -346,7 +349,7 @@ body {
         width: 30%;
         flex: 1;
         display: flex;
-        justify-content: center; /* Centrar el poster en pantallas muy pequeñas */
+        justify-content: center; /* Centrar el póster en pantallas muy pequeñas */
         align-items: flex-start;
     }
     .selected-content .info-table td:first-child {
@@ -377,4 +380,4 @@ body {
         width: 35px;
         height: 35px;
     }
-}
+} /* Cierre de la media query max-width:480px */
