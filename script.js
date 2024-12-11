@@ -67,7 +67,7 @@ async function loadLastRequests() {
         const solicitudesQuery = query(
             collection(db, 'solicitudes'),
             orderBy('timestamp', 'desc'),
-            limit(5)
+            limit(10)
         );
 
         const querySnapshot = await getDocs(solicitudesQuery);
