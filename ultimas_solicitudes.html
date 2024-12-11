@@ -42,11 +42,11 @@
         <table id="tablaSolicitudes">
             <thead>
                 <tr>
-                    <th>Usuario</th>
+                    <th>Nombre de Usuario</th>
                     <th>Título</th>
                     <th>Año</th>
                     <th>Tipo</th>
-                    <th>Horario</th>
+                    <th>Franja Horaria</th>
                     <th>Carátula</th>
                 </tr>
             </thead>
@@ -81,20 +81,26 @@
 
                 const tdUser = document.createElement('td');
                 tdUser.textContent = userName;
+                tdUser.setAttribute('data-label', 'Nombre de Usuario');
 
                 const tdTitle = document.createElement('td');
                 tdTitle.textContent = title;
+                tdTitle.setAttribute('data-label', 'Título');
 
                 const tdYear = document.createElement('td');
                 tdYear.textContent = year;
+                tdYear.setAttribute('data-label', 'Año');
 
                 const tdType = document.createElement('td');
                 tdType.textContent = type;
+                tdType.setAttribute('data-label', 'Tipo');
 
                 const tdFranja = document.createElement('td');
                 tdFranja.textContent = franja;
+                tdFranja.setAttribute('data-label', 'Franja Horaria');
 
                 const tdPoster = document.createElement('td');
+                tdPoster.setAttribute('data-label', 'Carátula');
                 if (poster) {
                     const img = document.createElement('img');
                     img.src = poster;
@@ -144,4 +150,3 @@
     </script>
 </body>
 </html>
-
