@@ -3,54 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Últimas Solicitudes</title>
-    <!-- Estilos Mejorados -->
+    <title>Piravision</title>
     <style>
-        /* Importar Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@600&display=swap');
-
-        /* Estilos generales */
+        /* Estilos Generales */
         body {
-            font-family: 'Roboto', sans-serif;
             margin: 0;
-            padding: 0;
-            background-color: #f9fafb;
-            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Fondo de la web con imagen y superposición oscura */
+            background: url('https://cdn.streamelements.com/uploads/176702d3-a685-4173-abf8-da1459be378e.PNG') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Header */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Superposición oscura */
+            z-index: -1;
+        }
+
+        /* Estilos de la cabecera */
         .header {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #333; /* Color de fondo de la cabecera */
-            padding: 20px;
+            background-color: #333;
             color: #fff;
-            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
-        .logo-container img {
-            height: 200px; /* Altura ajustada a 200px */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .logo {
+            height: 150px;
             width: auto;
-            margin-bottom: 15px;
         }
 
-        /* Iconos sociales */
         .social-icons {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .social-icons a {
-            display: inline-block;
+            margin-top: 15px;
         }
 
         .social-icons img {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             object-fit: contain;
             transition: transform 0.3s;
         }
@@ -59,272 +72,151 @@
             transform: scale(1.1);
         }
 
-        /* Título de la cabecera */
-        .section-title h1 {
-            margin: 0;
-            font-size: 2em;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Contenedor de las tarjetas */
-        .cards-container {
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            background-color: #f9fafb;
-            max-width: 900px; /* Limitar ancho para centrar en pantallas grandes */
-            margin: 0 auto; /* Centrar el contenedor */
-        }
-
-        /* Estilos de las tarjetas */
-        .card {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
+        /* Estilos del contenido central */
+        .main-content {
+            text-align: center;
+            padding: 40px 20px;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-header {
-            background-color: #3498db;
-            color: #fff;
-            padding: 15px 20px;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-        }
-
-        .card-body {
-            padding: 15px 20px;
-            display: flex;
-            flex-direction: row; /* Cambiar a fila para imagen a la derecha */
-            gap: 10px;
+            justify-content: center;
             align-items: center;
+            color: #fff;
         }
 
-        .card-body .info {
+        .welcome-text {
+            margin-bottom: 20px;
+            font-size: 2em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .promo-text {
+            margin-bottom: 40px;
+            font-size: 1.2em;
+            max-width: 800px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        /* Estilos de la lista de botones */
+        .button-list {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            flex: 1; /* Ocupa todo el espacio disponible */
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 300px;
         }
 
-        .card-body .info span {
-            font-size: 0.95em;
+        .button-list a {
+            width: 100%;
+            padding: 15px 0;
+            background-color: #1e88e5;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
 
-        .card-body img {
-            width: 150px; /* Ancho fijo para imágenes en pantallas grandes */
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-left: 20px; /* Espacio entre texto e imagen */
+        .button-list a:hover {
+            background-color: #1565c0;
+            transform: translateY(-2px);
         }
 
         /* Responsividad */
-        @media (min-width: 769px) {
-            /* En pantallas grandes, dos columnas centradas */
-            .cards-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
-
-            /* Ajustes en las imágenes de las tarjetas */
-            .card-body img {
-                width: 150px; /* Ancho fijo para imágenes */
-                max-height: 200px;
-                margin-left: 20px; /* Espacio entre texto e imagen */
-            }
-        }
-
         @media (max-width: 768px) {
-            /* En pantallas pequeñas, una columna */
-            .cards-container {
-                grid-template-columns: 1fr;
-                gap: 15px;
+            .logo {
+                height: 120px; /* Reducir tamaño del logo */
             }
 
-            /* Ajustes en las imágenes de las tarjetas */
-            .card-body {
-                flex-direction: row; /* Mantener en fila */
-                align-items: center;
+            .social-icons img {
+                width: 30px;
+                height: 30px;
             }
 
-            .card-body img {
-                width: 100px; /* Ancho reducido para imágenes */
-                max-height: 150px;
-                margin-left: 15px; /* Espacio reducido entre texto e imagen */
+            .welcome-text {
+                font-size: 1.8em;
             }
 
-            .logo-container img {
-                height: 120px; /* Altura ajustada a 120px */
-                width: auto;
-                margin-bottom: 15px;
+            .promo-text {
+                font-size: 1em;
+            }
+
+            .button-list a {
+                font-size: 1em;
+                padding: 12px 0;
             }
         }
 
         @media (max-width: 480px) {
-            /* Ajustes adicionales para pantallas muy pequeñas */
-            .social-icons {
-                justify-content: center;
-                width: 100%;
-                margin-top: 10px;
+            .logo {
+                height: 100px; /* Tamaño más pequeño del logo */
             }
 
-            .card-body img {
-                width: 80px; /* Ancho aún más reducido para imágenes */
-                max-height: 120px;
-                margin-left: 10px; /* Espacio reducido entre texto e imagen */
+            .social-icons img {
+                width: 25px;
+                height: 25px;
             }
 
-            .logo-container img {
-                height: 120px; /* Altura ajustada a 120px */
-                width: auto;
-                margin-bottom: 15px;
+            .welcome-text {
+                font-size: 1.5em;
+            }
+
+            .promo-text {
+                font-size: 0.9em;
+            }
+
+            .button-list a {
+                font-size: 0.9em;
+                padding: 10px 0;
             }
         }
     </style>
-    <!-- Firebase SDKs -->
-    <!-- Firebase App (core) -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <!-- Firebase Firestore -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 </head>
 <body>
-   
+    <!-- Cabecera -->
     <div class="header">
         <div class="logo-container">
             <img src="https://cdn.streamelements.com/uploads/fa3fe2b3-134b-4288-bfef-29948befc05f.png" alt="Logo" class="logo">
-        </div>
-        <div class="social-icons">
-            <a href="https://www.twitch.tv/piravision" target="_blank">
-                <img src="https://cdn.streamelements.com/uploads/4e340b43-7b0e-4bad-81d4-197c233827c4.png" alt="Twitch">
-            </a>
-            <a href="https://kick.com/piravision" target="_blank">
-                <img src="https://cdn.streamelements.com/uploads/9e660f91-49cb-476f-b328-8a1e5d9706ae.png" alt="Kick">
-            </a>
-            <a href="https://discord.gg/7VEzeTy55R" target="_blank">
-                <img src="https://cdn.streamelements.com/uploads/e731c1a0-344f-432d-bbf8-0590844f7e25.png" alt="Discord">
-            </a>
-            <a href="https://x.com/PiraVision" target="_blank">
-                <img src="https://cdn.streamelements.com/uploads/aecdfafd-fb1e-41d7-91ff-cc7d5cb34a32.png" alt="X (Twitter)">
-            </a>
-            <a href="https://t.me/+UD7ZygM3MrlhNjg0" target="_blank">
-                <img src="https://cdn.streamelements.com/uploads/16594692-335f-470e-9beb-fd542023ec96.png" alt="Telegram">
-            </a>
-        </div>
-        <div class="section-title">
-            <h1>Últimas Solicitudes</h1>
+            <div class="social-icons">
+                <a href="https://www.twitch.tv/piravision" target="_blank">
+                    <img src="https://cdn.streamelements.com/uploads/4e340b43-7b0e-4bad-81d4-197c233827c4.png" alt="Twitch">
+                </a>
+                <a href="https://kick.com/piravision" target="_blank">
+                    <img src="https://cdn.streamelements.com/uploads/9e660f91-49cb-476f-b328-8a1e5d9706ae.png" alt="Kick">
+                </a>
+                <a href="https://discord.gg/7VEzeTy55R" target="_blank">
+                    <img src="https://cdn.streamelements.com/uploads/e731c1a0-344f-432d-bbf8-0590844f7e25.png" alt="Discord">
+                </a>
+                <a href="https://x.com/PiraVision" target="_blank">
+                    <img src="https://cdn.streamelements.com/uploads/aecdfafd-fb1e-41d7-91ff-cc7d5cb34a32.png" alt="X (Twitter)">
+                </a>
+                <a href="https://t.me/+UD7ZygM3MrlhNjg0" target="_blank">
+                    <img src="https://cdn.streamelements.com/uploads/16594692-335f-470e-9beb-fd542023ec96.png" alt="Telegram">
+                </a>
+            </div>
         </div>
     </div>
 
-    <div class="cards-container">
-        <!-- Se agregarán tarjetas dinámicamente -->
+    <!-- Contenido Central -->
+    <div class="main-content">
+        <div class="welcome-text">
+            Piraviewers! llega la PiraApp de los Retrofindes de Piravision!
+        </div>
+        <div class="promo-text">
+            Os presentamos la nueva función interactiva para disfrutar al máximo tus clásicos favoritos durante los fines de semana.
+        </div>
+        <div class="button-list">
+            <a href="https://piravision.github.io/Comandos/" target="_blank">COMANDOS</a>
+            <a href="https://piravision.github.io/Parrilla/" target="_blank">PROGRAMACIÓN</a>
+            <a href="https://piravision.github.io/Peticiones/" target="_blank">PETICIÓN DE CONTENIDO</a>
+            <a href="https://piravision.github.io/Peticiones/ultimas_solicitudes.html" target="_blank">ULTIMAS SOLICITUDES</a>
+            <a href="https://piravision.github.io/Estrenos/" target="_blank">NUEVAS LLEGADAS</a>
+            <a href="https://piravision.github.io/Suscripciones/" target="_blank">SUSCRÍBETE</a>
+        </div>
     </div>
-
-    <!-- Script para conectar con Firebase y mostrar las solicitudes -->
-    <script>
-        // Configuración de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyBET8zN73NmBploRE8wgq_n737eR_hxpXw",
-            authDomain: "solicitudesapp-b2632.firebaseapp.com",
-            projectId: "solicitudesapp-b2632",
-            storageBucket: "solicitudesapp-b2632.appspot.com",
-            messagingSenderId: "542690661887",
-            appId: "1:542690661887:web:da612bb06f56fcd5bfc3ca"
-        };
-
-        // Inicializar Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const cardsContainer = document.querySelector('.cards-container');
-
-            // Función para agregar una solicitud como tarjeta
-            function addSolicitudCard({ userName, title, year, type, franja, poster }) {
-                const card = document.createElement('div');
-                card.classList.add('card');
-
-                // Header de la tarjeta
-                const cardHeader = document.createElement('div');
-                cardHeader.classList.add('card-header');
-                cardHeader.textContent = title; // Usamos el título como encabezado
-
-                // Cuerpo de la tarjeta
-                const cardBody = document.createElement('div');
-                cardBody.classList.add('card-body');
-
-                // Información de la solicitud
-                const infoDiv = document.createElement('div');
-                infoDiv.classList.add('info');
-
-                const userSpan = document.createElement('span');
-                userSpan.innerHTML = `<strong>Usuario:</strong> ${userName}`;
-                infoDiv.appendChild(userSpan);
-
-                const yearSpan = document.createElement('span');
-                yearSpan.innerHTML = `<strong>Año:</strong> ${year}`;
-                infoDiv.appendChild(yearSpan);
-
-                const typeSpan = document.createElement('span');
-                typeSpan.innerHTML = `<strong>Tipo:</strong> ${type}`;
-                infoDiv.appendChild(typeSpan);
-
-                const franjaSpan = document.createElement('span');
-                franjaSpan.innerHTML = `<strong>Franja Horaria:</strong> ${franja}`;
-                infoDiv.appendChild(franjaSpan);
-
-                cardBody.appendChild(infoDiv);
-
-                // Imagen de carátula
-                if (poster) {
-                    const img = document.createElement('img');
-                    img.src = poster;
-                    img.alt = "Carátula";
-                    cardBody.appendChild(img);
-                }
-
-                card.appendChild(cardHeader);
-                card.appendChild(cardBody);
-                cardsContainer.appendChild(card);
-            }
-
-            // Función para obtener y mostrar todas las solicitudes ordenadas por timestamp descendente
-            async function fetchSolicitudes() {
-                try {
-                    const solicitudesSnapshot = await db.collection('solicitudes')
-                        .orderBy('timestamp', 'desc')
-                        .get();
-
-                    if (solicitudesSnapshot.empty) {
-                        cardsContainer.innerHTML = "<p>No hay solicitudes disponibles.</p>";
-                        return;
-                    }
-
-                    solicitudesSnapshot.forEach(doc => {
-                        const solicitud = doc.data();
-                        addSolicitudCard(solicitud);
-                    });
-                } catch (error) {
-                    console.error("Error al obtener las solicitudes:", error);
-                    cardsContainer.innerHTML = "<p>Error al cargar las solicitudes.</p>";
-                }
-            }
-
-            // Llamar a la función para cargar las solicitudes al cargar la página
-            fetchSolicitudes();
-        });
-    </script>
 </body>
 </html>
-
-
