@@ -18,35 +18,40 @@
             color: #333;
         }
 
-        /* Header - Mantener sin cambios */
+        /* Header */
         .header {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            background-color: #2c3e50;
+            background-color: #333; /* Color de fondo de la cabecera */
             padding: 20px;
             color: #fff;
-            flex-wrap: wrap;
-        }
-
-        .section-title h1 {
-            margin: 0;
-            font-size: 2em;
-            font-family: 'Montserrat', sans-serif;
+            text-align: center;
         }
 
         .logo-container img {
-            height: 60px;
+            height: 200px; /* Altura ajustada a 200px */
+            width: auto;
+            margin-bottom: 15px;
         }
 
         /* Iconos sociales */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
         .social-icons a {
-            margin-left: 15px;
+            display: inline-block;
         }
 
         .social-icons img {
             width: 30px;
             height: 30px;
+            object-fit: contain;
             transition: transform 0.3s;
         }
 
@@ -54,117 +59,115 @@
             transform: scale(1.1);
         }
 
-        /* Contenedor de la tabla */
-        .table-container {
-            padding: 20px;
-            overflow-x: auto; /* Permitir scroll horizontal en pantallas pequeñas */
+        /* Título de la cabecera */
+        .section-title h1 {
+            margin: 0;
+            font-size: 2em;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        /* Estilos de la tabla */
-        #tablaSolicitudes {
-            width: 100%;
-            border-collapse: collapse;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        /* Contenedor de las tarjetas */
+        .cards-container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            background-color: #f9fafb;
+            max-width: 900px; /* Limitar ancho para centrar en pantallas grandes */
+            margin: 0 auto; /* Centrar el contenedor */
+        }
+
+        /* Estilos de las tarjetas */
+        .card {
             background-color: #fff;
             border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             overflow: hidden;
-            font-size: 1em;
-            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s;
         }
 
-        #tablaSolicitudes thead {
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
             background-color: #3498db;
             color: #fff;
-        }
-
-        #tablaSolicitudes th, #tablaSolicitudes td {
             padding: 15px 20px;
-            text-align: left;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        #tablaSolicitudes th {
             font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            font-weight: 600;
         }
 
-        #tablaSolicitudes tbody tr:nth-child(even) {
-            background-color: #f2f6fc;
+        .card-body {
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: row; /* Cambiar a fila para imagen a la derecha */
+            gap: 10px;
+            align-items: center;
         }
 
-        #tablaSolicitudes tbody tr:hover {
-            background-color: #e1f5fe;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .card-body .info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1; /* Ocupa todo el espacio disponible */
         }
 
-        /* Estilos para las imágenes de carátula */
-        #tablaSolicitudes img {
+        .card-body .info span {
+            font-size: 0.95em;
+        }
+
+        .card-body img {
+            width: 150px; /* Ancho fijo para imágenes en pantallas grandes */
+            max-height: 200px;
+            object-fit: cover;
             border-radius: 4px;
-            width: 60px;
-            height: auto;
+            margin-left: 20px; /* Espacio entre texto e imagen */
         }
 
         /* Responsividad */
+        @media (min-width: 769px) {
+            /* En pantallas grandes, dos columnas centradas */
+            .cards-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            /* Ajustes en las imágenes de las tarjetas */
+            .card-body img {
+                width: 150px; /* Ancho fijo para imágenes */
+                max-height: 200px;
+                margin-left: 20px; /* Espacio entre texto e imagen */
+            }
+        }
+
         @media (max-width: 768px) {
-            /* Ajustes en la cabecera para pantallas medianas */
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
+            /* En pantallas pequeñas, una columna */
+            .cards-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
 
-            .logo-container {
-                margin-top: 10px;
+            /* Ajustes en las imágenes de las tarjetas */
+            .card-body {
+                flex-direction: row; /* Mantener en fila */
+                align-items: center;
             }
 
-            .section-title h1 {
-                font-size: 1.5em;
+            .card-body img {
+                width: 100px; /* Ancho reducido para imágenes */
+                max-height: 150px;
+                margin-left: 15px; /* Espacio reducido entre texto e imagen */
             }
 
-            /* Tabla responsiva */
-            #tablaSolicitudes thead {
-                display: none; /* Ocultar encabezados en pantallas pequeñas */
-            }
-
-            #tablaSolicitudes, #tablaSolicitudes tbody, #tablaSolicitudes tr, #tablaSolicitudes td {
-                display: block;
-                width: 100%;
-            }
-
-            #tablaSolicitudes tr {
+            .logo-container img {
+                height: 120px; /* Altura ajustada a 120px */
+                width: auto;
                 margin-bottom: 15px;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                padding: 10px;
-                background-color: #fff;
-            }
-
-            #tablaSolicitudes td {
-                text-align: right;
-                padding-left: 50%;
-                position: relative;
-                padding: 10px 20px;
-            }
-
-            #tablaSolicitudes td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 20px;
-                width: 45%;
-                padding-right: 10px;
-                white-space: nowrap;
-                text-align: left;
-                font-weight: 500;
-                font-family: 'Montserrat', sans-serif;
-                color: #555;
-            }
-
-            /* Ajustar tamaño de las imágenes en pantallas pequeñas */
-            #tablaSolicitudes img {
-                width: 50px;
-                height: auto;
             }
         }
 
@@ -174,6 +177,18 @@
                 justify-content: center;
                 width: 100%;
                 margin-top: 10px;
+            }
+
+            .card-body img {
+                width: 80px; /* Ancho aún más reducido para imágenes */
+                max-height: 120px;
+                margin-left: 10px; /* Espacio reducido entre texto e imagen */
+            }
+
+            .logo-container img {
+                height: 120px; /* Altura ajustada a 120px */
+                width: auto;
+                margin-bottom: 15px;
             }
         }
     </style>
@@ -185,9 +200,6 @@
 </head>
 <body>
     <div class="header">
-        <div class="section-title">
-            <h1>Últimas Solicitudes</h1>
-        </div>
         <div class="logo-container">
             <img src="https://cdn.streamelements.com/uploads/fa3fe2b3-134b-4288-bfef-29948befc05f.png" alt="Logo" class="logo">
         </div>
@@ -208,24 +220,13 @@
                 <img src="https://cdn.streamelements.com/uploads/16594692-335f-470e-9beb-fd542023ec96.png" alt="Telegram">
             </a>
         </div>
+        <div class="section-title">
+            <h1>Últimas Solicitudes</h1>
+        </div>
     </div>
 
-    <div class="table-container">
-        <table id="tablaSolicitudes">
-            <thead>
-                <tr>
-                    <th>Nombre de Usuario</th>
-                    <th>Título</th>
-                    <th>Año</th>
-                    <th>Tipo</th>
-                    <th>Franja Horaria</th>
-                    <th>Carátula</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Se agregan filas dinámicamente -->
-            </tbody>
-        </table>
+    <div class="cards-container">
+        <!-- Se agregarán tarjetas dinámicamente -->
     </div>
 
     <!-- Script para conectar con Firebase y mostrar las solicitudes -->
@@ -245,51 +246,55 @@
         const db = firebase.firestore();
 
         document.addEventListener('DOMContentLoaded', () => {
-            const tablaSolicitudesBody = document.querySelector('#tablaSolicitudes tbody');
+            const cardsContainer = document.querySelector('.cards-container');
 
-            // Función para agregar una solicitud a la tabla
-            function addSolicitudToTable({ userName, title, year, type, franja, poster }) {
-                const tr = document.createElement('tr');
+            // Función para agregar una solicitud como tarjeta
+            function addSolicitudCard({ userName, title, year, type, franja, poster }) {
+                const card = document.createElement('div');
+                card.classList.add('card');
 
-                const tdUser = document.createElement('td');
-                tdUser.textContent = userName;
-                tdUser.setAttribute('data-label', 'Nombre de Usuario');
+                // Header de la tarjeta
+                const cardHeader = document.createElement('div');
+                cardHeader.classList.add('card-header');
+                cardHeader.textContent = title; // Usamos el título como encabezado
 
-                const tdTitle = document.createElement('td');
-                tdTitle.textContent = title;
-                tdTitle.setAttribute('data-label', 'Título');
+                // Cuerpo de la tarjeta
+                const cardBody = document.createElement('div');
+                cardBody.classList.add('card-body');
 
-                const tdYear = document.createElement('td');
-                tdYear.textContent = year;
-                tdYear.setAttribute('data-label', 'Año');
+                // Información de la solicitud
+                const infoDiv = document.createElement('div');
+                infoDiv.classList.add('info');
 
-                const tdType = document.createElement('td');
-                tdType.textContent = type;
-                tdType.setAttribute('data-label', 'Tipo');
+                const userSpan = document.createElement('span');
+                userSpan.innerHTML = `<strong>Usuario:</strong> ${userName}`;
+                infoDiv.appendChild(userSpan);
 
-                const tdFranja = document.createElement('td');
-                tdFranja.textContent = franja;
-                tdFranja.setAttribute('data-label', 'Franja Horaria');
+                const yearSpan = document.createElement('span');
+                yearSpan.innerHTML = `<strong>Año:</strong> ${year}`;
+                infoDiv.appendChild(yearSpan);
 
-                const tdPoster = document.createElement('td');
-                tdPoster.setAttribute('data-label', 'Carátula');
+                const typeSpan = document.createElement('span');
+                typeSpan.innerHTML = `<strong>Tipo:</strong> ${type}`;
+                infoDiv.appendChild(typeSpan);
+
+                const franjaSpan = document.createElement('span');
+                franjaSpan.innerHTML = `<strong>Franja Horaria:</strong> ${franja}`;
+                infoDiv.appendChild(franjaSpan);
+
+                cardBody.appendChild(infoDiv);
+
+                // Imagen de carátula
                 if (poster) {
                     const img = document.createElement('img');
                     img.src = poster;
                     img.alt = "Carátula";
-                    tdPoster.appendChild(img);
-                } else {
-                    tdPoster.textContent = 'N/A';
+                    cardBody.appendChild(img);
                 }
 
-                tr.appendChild(tdUser);
-                tr.appendChild(tdTitle);
-                tr.appendChild(tdYear);
-                tr.appendChild(tdType);
-                tr.appendChild(tdFranja);
-                tr.appendChild(tdPoster);
-
-                tablaSolicitudesBody.appendChild(tr);
+                card.appendChild(cardHeader);
+                card.appendChild(cardBody);
+                cardsContainer.appendChild(card);
             }
 
             // Función para obtener y mostrar todas las solicitudes ordenadas por timestamp descendente
@@ -300,17 +305,17 @@
                         .get();
 
                     if (solicitudesSnapshot.empty) {
-                        tablaSolicitudesBody.innerHTML = "<tr><td colspan='6'>No hay solicitudes disponibles.</td></tr>";
+                        cardsContainer.innerHTML = "<p>No hay solicitudes disponibles.</p>";
                         return;
                     }
 
                     solicitudesSnapshot.forEach(doc => {
                         const solicitud = doc.data();
-                        addSolicitudToTable(solicitud);
+                        addSolicitudCard(solicitud);
                     });
                 } catch (error) {
                     console.error("Error al obtener las solicitudes:", error);
-                    tablaSolicitudesBody.innerHTML = "<tr><td colspan='6'>Error al cargar las solicitudes.</td></tr>";
+                    cardsContainer.innerHTML = "<p>Error al cargar las solicitudes.</p>";
                 }
             }
 
@@ -320,4 +325,5 @@
     </script>
 </body>
 </html>
+
 
