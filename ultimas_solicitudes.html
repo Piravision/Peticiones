@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Últimas Solicitudes</title>
-<link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Últimas Solicitudes</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Firebase SDKs -->
+    <!-- Firebase App (core) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <!-- Firebase Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 </head>
 <body>
     <div class="header">
@@ -51,15 +56,27 @@
         </table>
     </div>
 
+    <!-- Script para conectar con Firebase y mostrar las solicitudes -->
     <script>
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY_AQUÍ",
+            authDomain: "TU_AUTH_DOMAIN_AQUÍ",
+            projectId: "TU_PROJECT_ID_AQUÍ",
+            storageBucket: "TU_STORAGE_BUCKET_AQUÍ",
+            messagingSenderId: "TU_MESSAGING_SENDER_ID_AQUÍ",
+            appId: "TU_APP_ID_AQUÍ"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         document.addEventListener('DOMContentLoaded', () => {
             const tablaSolicitudesBody = document.querySelector('#tablaSolicitudes tbody');
-            const solicitudes = JSON.parse(localStorage.getItem('solicitudes')) || [];
-            solicitudes.forEach(solicitud => {
-                addSolicitudToTable(solicitud);
-            });
 
-            function addSolicitudToTable({userName, title, year, type, franja, poster}) {
+            // Función para agregar una solicitud a la tabla
+            function addSolicitudToTable({ userName, title, year, type, franja, poster }) {
                 const tr = document.createElement('tr');
 
                 const tdUser = document.createElement('td');
@@ -98,6 +115,31 @@
 
                 tablaSolicitudesBody.appendChild(tr);
             }
+
+            // Función para obtener y mostrar todas las solicitudes ordenadas por timestamp descendente
+            async function fetchSolicitudes() {
+                try {
+                    const solicitudesSnapshot = await db.collection('solicitudes')
+                        .orderBy('timestamp', 'desc')
+                        .get();
+
+                    if (solicitudesSnapshot.empty) {
+                        tablaSolicitudesBody.innerHTML = "<tr><td colspan='6'>No hay solicitudes disponibles.</td></tr>";
+                        return;
+                    }
+
+                    solicitudesSnapshot.forEach(doc => {
+                        const solicitud = doc.data();
+                        addSolicitudToTable(solicitud);
+                    });
+                } catch (error) {
+                    console.error("Error al obtener las solicitudes:", error);
+                    tablaSolicitudesBody.innerHTML = "<tr><td colspan='6'>Error al cargar las solicitudes.</td></tr>";
+                }
+            }
+
+            // Llamar a la función para cargar las solicitudes al cargar la página
+            fetchSolicitudes();
         });
     </script>
 </body>
